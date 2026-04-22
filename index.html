@@ -545,50 +545,115 @@ body {
 /* Confirmación asistencia */
 .rsvp-confirmed {
   display:none;
-  flex-direction:column; align-items:center; gap:8px;
-  padding:18px 20px;
-  background:rgba(37,211,102,.08);
+  flex-direction:column; align-items:center; gap:10px;
+  padding:20px 20px 16px;
+  background:rgba(37,211,102,.07);
   border:1.5px solid rgba(37,211,102,.3);
   border-radius:20px;
   text-align:center;
+  animation: rsvpPop .45s cubic-bezier(.17,.67,.3,1.4);
 }
 .rsvp-confirmed.visible { display:flex; }
-.rsvp-confirmed .rsvp-conf-icon { font-size:36px; }
-.rsvp-confirmed .rsvp-conf-msg {
-  font-size:14px; font-weight:900;
-  color:#fff; letter-spacing:1px;
+
+.rsvp-declined {
+  display:none;
+  flex-direction:column; align-items:center; gap:10px;
+  padding:20px 20px 16px;
+  background:rgba(255,45,120,.06);
+  border:1.5px solid rgba(255,45,120,.25);
+  border-radius:20px;
+  text-align:center;
+  animation: rsvpPop .45s cubic-bezier(.17,.67,.3,1.4);
 }
-.rsvp-confirmed .rsvp-conf-sub {
-  font-size:11px; color:rgba(255,255,255,.4); font-weight:700;
+.rsvp-declined.visible { display:flex; }
+
+@keyframes rsvpPop {
+  0%  { opacity:0; transform:scale(.85) translateY(12px); }
+  100%{ opacity:1; transform:scale(1)   translateY(0); }
 }
+
+/* Sticker foto */
+.rsvp-sticker {
+  width: 90px; height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  border: 3px solid rgba(255,255,255,.15);
+  box-shadow: 0 0 20px rgba(255,255,255,.1), 0 4px 20px rgba(0,0,0,.5);
+  animation: stickerBounce .6s cubic-bezier(.17,.67,.3,1.5) .1s both;
+  flex-shrink: 0;
+}
+.rsvp-confirmed .rsvp-sticker {
+  border-color: rgba(37,211,102,.5);
+  box-shadow: 0 0 24px rgba(37,211,102,.3), 0 4px 20px rgba(0,0,0,.5);
+}
+.rsvp-declined .rsvp-sticker {
+  border-color: rgba(255,45,120,.4);
+  box-shadow: 0 0 24px rgba(255,45,120,.25), 0 4px 20px rgba(0,0,0,.5);
+}
+@keyframes stickerBounce {
+  0%  { transform: scale(0) rotate(-15deg); opacity:0; }
+  70% { transform: scale(1.1) rotate(3deg); }
+  100%{ transform: scale(1) rotate(0deg); opacity:1; }
+}
+
+.rsvp-conf-msg {
+  font-size:15px; font-weight:900;
+  color:#fff; letter-spacing:.5px;
+  line-height:1.3;
+}
+.rsvp-confirmed .rsvp-conf-msg { color: #4dff8f; text-shadow: 0 0 16px rgba(37,211,102,.5); }
+.rsvp-declined  .rsvp-conf-msg { color: var(--pink); text-shadow: 0 0 16px rgba(255,45,120,.4); }
+
+.rsvp-conf-sub {
+  font-size:12px; color:rgba(255,255,255,.45); font-weight:700; line-height:1.5;
+}
+
 .rsvp-change-btn {
   background:none; border:1px solid rgba(255,255,255,.15);
   border-radius:30px; padding:7px 18px;
   color:rgba(255,255,255,.4); font-family:'Nunito',sans-serif;
   font-size:10px; font-weight:900; letter-spacing:2px;
   cursor:pointer; transition:all .2s; text-transform:uppercase;
-  margin-top:4px;
+  margin-top:2px;
 }
 .rsvp-change-btn:hover { border-color:rgba(255,255,255,.3); color:rgba(255,255,255,.7); }
 
-.rsvp-declined {
-  display:none;
-  flex-direction:column; align-items:center; gap:8px;
-  padding:18px 20px;
-  background:rgba(255,45,120,.06);
-  border:1.5px solid rgba(255,45,120,.25);
-  border-radius:20px;
-  text-align:center;
+/* ===== BOTONES CALENDARIO Y MAPA ===== */
+.action-links {
+  display:flex; gap:8px; flex-wrap:wrap; justify-content:center;
+  margin-top:4px; width:100%;
 }
-.rsvp-declined.visible { display:flex; }
-.rsvp-declined .rsvp-conf-icon { font-size:36px; }
-.rsvp-declined .rsvp-conf-msg {
-  font-size:14px; font-weight:900;
-  color:#fff; letter-spacing:1px;
+.action-link {
+  display:flex; align-items:center; gap:6px;
+  padding:9px 14px;
+  border-radius:30px;
+  font-family:'Nunito',sans-serif;
+  font-size:11px; font-weight:900; letter-spacing:1px;
+  text-decoration:none; cursor:pointer;
+  transition:all .25s;
+  border:none;
+  flex:1; min-width:110px; justify-content:center;
 }
-.rsvp-declined .rsvp-conf-sub {
-  font-size:11px; color:rgba(255,255,255,.4); font-weight:700;
+.action-link svg { width:14px; height:14px; flex-shrink:0; }
+.action-link-cal {
+  background:rgba(0,255,231,.1);
+  border:1px solid rgba(0,255,231,.35);
+  color:var(--neon-cyan);
 }
+.action-link-cal:hover { background:rgba(0,255,231,.2); box-shadow:0 0 18px rgba(0,255,231,.2); }
+.action-link-maps {
+  background:rgba(255,45,120,.1);
+  border:1px solid rgba(255,45,120,.35);
+  color:var(--pink);
+}
+.action-link-maps:hover { background:rgba(255,45,120,.2); box-shadow:0 0 18px rgba(255,45,120,.2); }
+.action-link-waze {
+  background:rgba(204,255,0,.08);
+  border:1px solid rgba(204,255,0,.3);
+  color:var(--neon-lime);
+}
+.action-link-waze:hover { background:rgba(204,255,0,.15); box-shadow:0 0 18px rgba(204,255,0,.15); }
 
 .rsvp-dead{
   text-align:center; margin-top:12px;
@@ -818,18 +883,34 @@ body {
     <div class="cards">
       <div class="card">
         <div class="c-icon ci1">📅</div>
-        <div>
+        <div style="flex:1">
           <p class="c-lbl">Cuándo</p>
           <p class="c-val">Jueves 1 de mayo, 2026</p>
           <p class="c-sub">A partir de las 21:00 hs</p>
+          <div class="action-links" style="margin-top:10px; justify-content:flex-start;">
+            <a class="action-link action-link-cal" href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Cumplea%C3%B1os+de+Betiana+41&dates=20260501T210000-0300/20260502T030000-0300&details=Terraza+Rooftop+Bar+-+%C2%A1Fest%C3%A1+con+Betiana!&location=Av.+del+Libertador+1850,+Buenos+Aires" target="_blank">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3h-1V1h-2v2H8V1H6v2H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>
+              Agendar
+            </a>
+          </div>
         </div>
       </div>
       <div class="card">
         <div class="c-icon ci2">📍</div>
-        <div>
+        <div style="flex:1">
           <p class="c-lbl">Dónde</p>
           <p class="c-val">Terraza Rooftop Bar</p>
           <p class="c-sub">Av. del Libertador 1850, Buenos Aires</p>
+          <div class="action-links" style="margin-top:10px; justify-content:flex-start;">
+            <a class="action-link action-link-maps" href="https://maps.google.com/?q=Av.+del+Libertador+1850,+Buenos+Aires" target="_blank">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+              Maps
+            </a>
+            <a class="action-link action-link-waze" href="https://waze.com/ul?q=Av.+del+Libertador+1850,+Buenos+Aires&navigate=yes" target="_blank">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93V18c0-.55-.45-1-1-1s-1 .45-1 1v1.93C7.06 19.48 4.52 16.94 4.07 13H6c.55 0 1-.45 1-1s-.45-1-1-1H4.07C4.52 7.06 7.06 4.52 11 4.07V6c0 .55.45 1 1 1s1-.45 1-1V4.07C16.94 4.52 19.48 7.06 19.93 11H18c-.55 0-1 .45-1 1s.45 1 1 1h1.93c-.45 3.94-2.99 6.48-6.93 6.93z"/></svg>
+              Waze
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -853,7 +934,7 @@ body {
       <div class="dj-video-wrap">
         <div class="dj-video-overlay"></div>
         <video autoplay muted loop playsinline>
-          <source src="bety_dj.mp4" type="video/mp4">
+          <source src="Bet_dj.mp4" type="video/mp4">
         </video>
         <div class="dj-badge">🎧 Bety DJ</div>
       </div>
@@ -913,17 +994,17 @@ body {
 
       <!-- CONFIRMADO -->
       <div class="rsvp-confirmed" id="rsvpConfirmed">
-        <div class="rsvp-conf-icon">🥂</div>
-        <div class="rsvp-conf-msg">¡Nos vemos en la fiesta!</div>
-        <div class="rsvp-conf-sub">Tu confirmación fue registrada ✓</div>
+        <img class="rsvp-sticker" src="si.png" alt="¡Sí!" />
+        <div class="rsvp-conf-msg">¡Te esperamos con todo! 🎉</div>
+        <div class="rsvp-conf-sub">Tu lugar está reservado en la pista.<br>¡Va a ser una noche increíble!</div>
         <button class="rsvp-change-btn" onclick="changeRSVP()">Cambiar respuesta</button>
       </div>
 
       <!-- NO PUEDE -->
       <div class="rsvp-declined" id="rsvpDeclined">
-        <div class="rsvp-conf-icon">💔</div>
-        <div class="rsvp-conf-msg">¡Te vamos a extrañar!</div>
-        <div class="rsvp-conf-sub">Ojalá puedas venir la próxima ✓</div>
+        <img class="rsvp-sticker" src="No.png" alt="No puedo" />
+        <div class="rsvp-conf-msg">¡Qué lástima, te vamos a extrañar! 💔</div>
+        <div class="rsvp-conf-sub">Igual te mandamos todo el amor.<br>¡Seguiremos la fiesta por vos!</div>
         <button class="rsvp-change-btn" onclick="changeRSVP()">Cambiar respuesta</button>
       </div>
 
